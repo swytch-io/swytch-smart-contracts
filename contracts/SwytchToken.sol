@@ -13,10 +13,10 @@ contract SwytchToken is SmartToken {
 
     //
     uint8 public decimals = 18;
-
-    //    uint256 public INITIAL_SUPPLY = 3.65e9 * (10**uint256(decimals));
-//    uint256 public INITIAL_SUPPLY = 3.65e4 * (10 ** uint256(decimals));
-    uint256 public INITIAL_SUPPLY = 1000;
+    // 3,650,000,000 tokens with 18 decimal places
+    uint256 public INITIAL_SUPPLY = 3.65e9 * (10 ** uint256(decimals));
+    //    uint256 public INITIAL_SUPPLY = 3.65e4 * (10 ** uint256(decimals));
+    //    uint256 public INITIAL_SUPPLY = 1000;
 
     /**
      * @dev Constructor that gives msg.sender all of existing tokens.
