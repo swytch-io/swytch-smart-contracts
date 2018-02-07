@@ -146,9 +146,8 @@ contract SwytchCrowdsale is Crowdsale, Ownable {
     //                                      Impl FinalizableCrowdsale
     // =================================================================================================================
 
-    //@Override
+    // this needs work still
     function finalization() internal onlyOwner {
-        //        super.finalization();
 
         // granting bonuses for the pre crowdsale grantees:
         for (uint256 i = 0; i < presaleGranteesMapKeys.length; i++) {
@@ -190,7 +189,6 @@ contract SwytchCrowdsale is Crowdsale, Ownable {
     // =================================================================================================================
     // @return the total funds collected in wei(ETH and none ETH).
     function getTotalFundsRaised() public view returns (uint256) {
-        //        return SwytchToken(token).getBalance();
         return 0x0;
     }
 
@@ -247,9 +245,4 @@ contract SwytchCrowdsale is Crowdsale, Ownable {
         GrantDeleted(_grantee, presaleGranteesMap[_grantee]);
     }
 
-    /// @dev Accepts new ownership on behalf of the SwytchCrowdsale contract. This can be used, by the token sale
-    /// contract itself to claim back ownership of the SwytchSmartToken contract.
-    //    function claimTokenOwnership() external onlyOwner {
-    //        SwytchToken(token).claimOwnership();
-    //    }
 }
