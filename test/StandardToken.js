@@ -1,6 +1,7 @@
 'use strict'
 const assertJump = require('./helpers/assertJump')
-let StandardTokenMock = artifacts.require('./helpers/StandardTokenMock.sol')
+const expectThrow = require('./helpers/expectThrow')
+var StandardTokenMock = artifacts.require('./helpers/StandardTokenMock.sol')
 
 contract('StandardToken', function (accounts) {
 
@@ -116,7 +117,7 @@ contract('StandardToken', function (accounts) {
   it('should throw an error when trying to transfer to 0x0', async function () {
     let token = await StandardTokenMock.new(accounts[0], 100)
     try {
-      await token.transfer(0x0, 100)
+      let transfer = await token.transfer(0x0, 100)
       assert.fail('should have thrown before')
     } catch (error) {
       assertJump(error)
@@ -127,7 +128,7 @@ contract('StandardToken', function (accounts) {
     let token = await StandardTokenMock.new(accounts[0], 100)
     await token.approve(accounts[1], 100)
     try {
-      await token.transferFrom(accounts[0], 0x0, 100, {
+      let transfer = await token.transferFrom(accounts[0], 0x0, 100, {
         from: accounts[1]
       })
       assert.fail('should have thrown before')
