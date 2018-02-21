@@ -61,5 +61,17 @@ contract('SwytchToken', (accounts) => {
       assert(newSupply, 3);
     });
 
+    it('should throw when trying to mint after minting has stopped', async () => {
+      let token = await SwytchToken.new();
+      await token.mint(accounts[0],3);
+      await token.finishMinting();
+      assert(token.mintingFinished , true);
+      try {
+        await token.mint(accounts[0], 3);
+      } catch(error) {
+        return utils.ensureException(error);
+      }
+    });
+
   });
 });
