@@ -36,10 +36,10 @@ contract('SwytchToken', (accounts) => {
       await token.disableTransfers(true)
       assert.equal(await token.transfersEnabled(), false);
 
-      // await token.issue(accounts[0], 1000);
-      // let balance = await token.balanceOf(accounts[0]);
+      await token.issue(accounts[0], 1000);
+      let balance = await token.balanceOf(accounts[0]);
       // console.log(balance)
-      // assert.equal(balance, 1000);
+      assert.equal(balance, 2000);
 
       try {
         await token.transfer(accounts[1], 100);
@@ -51,27 +51,5 @@ contract('SwytchToken', (accounts) => {
         return utils.ensureException(error);
       }
     });
-
-    it('should be able to mint a token', async () => {
-      let token = await SwytchToken.new();
-      await token.mint(accounts[1],3);
-      let balance = await token.balanceOf(accounts[1]);
-      assert(balance, 3);
-      let newSupply = await token.totalSupply();
-      assert(newSupply, 3);
-    });
-
-    it('should throw when trying to mint after minting has stopped', async () => {
-      let token = await SwytchToken.new();
-      await token.mint(accounts[0],3);
-      await token.finishMinting();
-      assert(token.mintingFinished , true);
-      try {
-        await token.mint(accounts[0], 3);
-      } catch(error) {
-        return utils.ensureException(error);
-      }
-    });
-
   });
 });
