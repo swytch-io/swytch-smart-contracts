@@ -4,6 +4,8 @@ import "./bancor/SmartToken.sol";
 
 
 contract SwytchToken is SmartToken {
+    event Mint(address indexed to, uint256 amount);
+    event MintFinished();
 
     //
     string public name = "Swytch Energy Token";
@@ -17,6 +19,41 @@ contract SwytchToken is SmartToken {
     uint256 public INITIAL_SUPPLY = 3.65e9 * (10 ** uint256(decimals));
     //    uint256 public INITIAL_SUPPLY = 3.65e4 * (10 ** uint256(decimals));
     //    uint256 public INITIAL_SUPPLY = 1000;
+
+    //
+    bool public mintingFinished = false;
+
+
+    modifier canMint() {
+        require(!mintingFinished);
+        _;
+    }
+
+    /**
+     * @dev Function to mint tokens
+     * @param _to The address that will receive the minted tokens.
+     * @param _amount The amount of tokens to mint.
+     * @return A boolean that indicates if the operation was successful.
+     */
+    function mint(address _to, uint256 _amount) onlyOwner canMint public returns (bool) {
+        totalSupply_ = totalSupply_.add(_amount);
+        balances[_to] = balances[_to].add(_amount);
+        Mint(_to, _amount);
+        Transfer(address(0), _to, _amount);
+        return true;
+    }
+
+    /**
+     * @dev Function to stop minting new tokens.
+     * @return True if the operation was successful.
+     */
+    function finishMinting() onlyOwner canMint public returns (bool) {
+        mintingFinished = true;
+        MintFinished();
+        return true;
+    }
+
+
 
     /**
      * @dev Constructor that gives msg.sender all of existing tokens.

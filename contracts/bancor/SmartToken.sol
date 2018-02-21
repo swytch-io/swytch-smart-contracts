@@ -1,12 +1,10 @@
 pragma solidity ^0.4.18;
 
-import "zeppelin-solidity/contracts/token/ERC20/PausableToken.sol";
-//import "zeppelin-solidity/contracts/lifecycle/Pausable.sol";
 import "./ISmartToken.sol";
 import "../Utils.sol";
 
 
-contract SmartToken is ISmartToken, PausableToken, Utils {
+contract SmartToken is ISmartToken, Utils {
 
     string public standard = "Token 0.1";
     string public name = "";
