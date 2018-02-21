@@ -1,12 +1,12 @@
 pragma solidity ^0.4.18;
 
-import "zeppelin-solidity/contracts/token/ERC20/StandardToken.sol";
 import "zeppelin-solidity/contracts/ownership/Ownable.sol";
+import "zeppelin-solidity/contracts/token/ERC20/MintableToken.sol";
 import "./ISmartToken.sol";
 import "../Utils.sol";
 
 
-contract SmartToken is ISmartToken, StandardToken, Utils, Ownable {
+contract SmartToken is ISmartToken, Utils, Ownable, MintableToken {
 
     string public standard = "Token 0.1";
     string public name = "";

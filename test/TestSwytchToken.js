@@ -51,5 +51,15 @@ contract('SwytchToken', (accounts) => {
         return utils.ensureException(error);
       }
     });
+
+    it('should be able to mint a token', async () => {
+      let token = await SwytchToken.new();
+      await token.mint(accounts[1],3);
+      let balance = await token.balanceOf(accounts[1]);
+      assert(balance, 3);
+      let newSupply = await token.totalSupply();
+      assert(newSupply, 3);
+    });
+
   });
 });
