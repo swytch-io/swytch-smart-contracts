@@ -1,12 +1,12 @@
 pragma solidity ^0.4.18;
 
-import "zeppelin-solidity/contracts/token/ERC20/PausableToken.sol";
-//import "zeppelin-solidity/contracts/lifecycle/Pausable.sol";
+import "zeppelin-solidity/contracts/ownership/Ownable.sol";
+import "zeppelin-solidity/contracts/token/ERC20/MintableToken.sol";
 import "./ISmartToken.sol";
 import "../Utils.sol";
 
 
-contract SmartToken is ISmartToken, PausableToken, Utils {
+contract SmartToken is ISmartToken, Utils, Ownable, MintableToken {
 
     string public standard = "Token 0.1";
     string public name = "";
@@ -37,24 +37,12 @@ contract SmartToken is ISmartToken, PausableToken, Utils {
         destroyEnabled = _enable;
     }
 
-    function transfer(address _to, uint256 _value) public whenNotPaused transfersAllowed returns (bool) {
+    function transfer(address _to, uint256 _value) public transfersAllowed returns (bool) {
         return super.transfer(_to, _value);
     }
 
-    function transferFrom(address _from, address _to, uint256 _value) public whenNotPaused transfersAllowed returns (bool) {
+    function transferFrom(address _from, address _to, uint256 _value) public transfersAllowed returns (bool) {
         return super.transferFrom(_from, _to, _value);
-    }
-
-    function approve(address _spender, uint256 _value) public whenNotPaused returns (bool) {
-        return super.approve(_spender, _value);
-    }
-
-    function increaseApproval(address _spender, uint _addedValue) public whenNotPaused returns (bool success) {
-        return super.increaseApproval(_spender, _addedValue);
-    }
-
-    function decreaseApproval(address _spender, uint _subtractedValue) public whenNotPaused returns (bool success) {
-        return super.decreaseApproval(_spender, _subtractedValue);
     }
 
     /**
