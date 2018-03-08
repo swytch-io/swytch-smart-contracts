@@ -54,7 +54,7 @@ contract SmartToken is ISmartToken, Utils, Ownable, MintableToken {
     }
 
     //@Override
-    function issue(address _to, uint256 _amount) public onlyOwner validAddress(_to) notThis(_to) {
+    function issue(address _to, uint256 _amount) public transfersAllowed onlyOwner validAddress(_to) notThis(_to) {
         totalSupply_ = totalSupply_.add(_amount);
         balances[_to] = balances[_to].add(_amount);
 
@@ -63,12 +63,29 @@ contract SmartToken is ISmartToken, Utils, Ownable, MintableToken {
     }
 
     //@Override
-    function destroy(address _from, uint256 _amount) public canDestroy {
+    function destroy(address _from, uint256 _amount) public transfersAllowed canDestroy {
         require(msg.sender == _from || msg.sender == owner);
         balances[_from] = balances[_from].sub(_amount);
         totalSupply_ = totalSupply_.sub(_amount);
         Destruction(_amount);
         Transfer(_from, 0x0, _amount);
+    }
+
+    /** Mintable overrides */
+    /**
+       * @dev Override function to mint tokens
+       * @param _to The address that will receive the minted tokens.
+       * @param _amount The amount of tokens to mint.
+       * @return A boolean that indicates if the operation was successful.
+       */
+    function mint(address _to, uint256 _amount) public transfersAllowed onlyOwner canMint returns (bool) {
+        assert(super.mint(_to, _amount));
+        return true;
+    }
+
+    function finishMinting() public onlyOwner canMint returns (bool) {
+        assert(super.finishMinting());
+        return true;
     }
 }
 

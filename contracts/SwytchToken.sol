@@ -14,9 +14,9 @@ contract SwytchToken is SmartToken {
     //
     uint8 public decimals = 18;
     // 3,650,000,000 tokens with 18 decimal places
-    uint256 public INITIAL_SUPPLY = 3.65e9 * (10 ** uint256(decimals));
+    //    uint256 public INITIAL_SUPPLY = 3.65e9 * (10 ** uint256(decimals));
     //    uint256 public INITIAL_SUPPLY = 3.65e4 * (10 ** uint256(decimals));
-    //    uint256 public INITIAL_SUPPLY = 1000;
+    uint256 public INITIAL_SUPPLY = 1000;
 
 
     /**
@@ -38,16 +38,4 @@ contract SwytchToken is SmartToken {
         totalSupply_ += msg.value;
         return true;
     }
-
-    //    function withdraw(uint256 amount) returns (bool success) {
-    //        if (balances[msg.sender] < amount) return false;
-    //        balances[msg.sender] -= amount;
-    //        totalSupply_ -= amount;
-    //        if (!msg.sender.send(amount)) {
-    //            balances[msg.sender] += amount;
-    //            totalSupply_ += amount;
-    //            return false;
-    //        }
-    //        return true;
-    //    }
 }

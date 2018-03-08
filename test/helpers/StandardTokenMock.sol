@@ -1,6 +1,5 @@
 pragma solidity ^0.4.18;
 
-
 import "zeppelin-solidity/contracts/token/ERC20/StandardToken.sol";
 
 // mock class using StandardToken
@@ -10,5 +9,4 @@ contract StandardTokenMock is StandardToken {
         balances[initialAccount] = initialBalance;
         totalSupply_ = initialBalance;
     }
-
 }
