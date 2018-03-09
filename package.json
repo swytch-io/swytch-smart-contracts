@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "lite-server",
     "test": "scripts/test.sh",
-    "coverage": "scripts/coverage.sh"
+    "coverage": "scripts/coverage.sh",
+    "start": "node ./api/server.js"
   },
   "repository": {
     "type": "git",
@@ -40,13 +41,26 @@
     "truffle": "^4.0.6"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
     "commander": "^2.14.0",
+    "config": "^1.30.0",
+    "cookie-parser": "^1.4.3",
+    "debug": "^3.1.0",
+    "dotenv": "^5.0.1",
     "ethereumjs-abi": "^0.6.5",
+    "express-jwt": "^5.3.0",
+    "express-rate-limit": "^2.11.0",
     "fs": "0.0.1-security",
+    "helmet": "^3.12.0",
+    "jsonwebtoken": "^8.2.0",
+    "lodash": "^4.17.5",
     "md5": "^2.2.1",
     "mkdirp": "^0.5.1",
+    "morgan": "^1.9.0",
     "node-fs-writefile-promise": "^1.0.0",
+    "nonce": "^1.0.4",
     "remove": "^0.1.5",
+    "uuid": "^3.2.1",
     "web3": "^1.0.0-beta.26",
     "zeppelin-solidity": "1.6.0"
   }
