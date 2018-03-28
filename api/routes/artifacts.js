@@ -13,7 +13,7 @@ router.get('/:contractName', function (req, res, next) {
     let _path = path.join(process.env.PWD, 'build/contracts', contractName)
     fs.stat(_path, (err, stat) => {
       if (err) {
-        return res.status(200).json({success: false, message: 'Not found'})
+        return res.status(404).json({success: false, message: 'Not found'})
       }
       let file = fs.createReadStream(_path)
       res.writeHead(200, {
@@ -22,7 +22,7 @@ router.get('/:contractName', function (req, res, next) {
       file.pipe(res)
     })
   } catch (e) {
-    return res.status(200).json({success: false, message: 'Not found'})
+    return res.status(404).json({success: false, message: 'Not found'})
   }
   // res.status(200).json({data: ['GET']})
 })

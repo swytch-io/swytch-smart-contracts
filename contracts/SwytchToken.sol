@@ -5,19 +5,28 @@ import "./bancor/SmartToken.sol";
 
 contract SwytchToken is SmartToken {
 
-    //
-    string public name = "Swytch Energy Token";
+    /**
+    * @dev Contract Name
+    */
+    string public name = "Swytch Energy Token - Beta";
 
-    //
-    string public symbol = "SET";
+    /**
+    * @dev Contract Symbol
+    */
+    string public symbol = "BSET";
 
-    //
+    /**
+    * @dev Number of decimals
+    */
     uint8 public decimals = 18;
-    // 3,650,000,000 tokens with 18 decimal places
-    //    uint256 public INITIAL_SUPPLY = 3.65e9 * (10 ** uint256(decimals));
-    //    uint256 public INITIAL_SUPPLY = 3.65e4 * (10 ** uint256(decimals));
-    uint256 public INITIAL_SUPPLY = 1000;
 
+    /**
+    * @dev Initial Supply
+    */
+    //    uint256 public INITIAL_SUPPLY = 2.03e8 * (10 ** uint256(decimals));
+    uint256 public initialSupply = 0;
+
+    uint256 public MAXIMUM_SUPPLY = 3.65e9 * (10 ** uint256(decimals));
 
     /**
      * @dev Constructor that gives msg.sender all of existing tokens.
@@ -26,16 +35,27 @@ contract SwytchToken is SmartToken {
     public
     SmartToken(name, symbol, decimals) {
         owner = msg.sender;
-        totalSupply_ = INITIAL_SUPPLY;
-        balances[msg.sender] = INITIAL_SUPPLY;
-        Transfer(0x0, owner, INITIAL_SUPPLY);
+        totalSupply_ = initialSupply;
+        balances[msg.sender] = initialSupply;
+        Transfer(0x0, owner, initialSupply);
         NewSmartToken(address(this));
     }
 
-    function deposit() payable returns (bool success) {
-        if (msg.value == 0) return false;
-        balances[msg.sender] += msg.value;
-        totalSupply_ += msg.value;
-        return true;
+
+    /** Mintable overrides */
+    /**
+       * @dev Override function to mint tokens
+       * @param _to The address that will receive the minted tokens.
+       * @param _amount The amount of tokens to mint.
+       * @return A boolean that indicates if the operation was successful.
+       */
+    function mint(address _to, uint256 _amount) public transfersAllowed onlyOwner canMint returns (bool) {
+        var current = totalSupply();
+        assert(current.add(_amount) <= MAXIMUM_SUPPLY);
+        return super.mint(_to, _amount);
+    }
+
+    function finishMinting() public onlyOwner canMint returns (bool) {
+        return super.finishMinting();
     }
 }

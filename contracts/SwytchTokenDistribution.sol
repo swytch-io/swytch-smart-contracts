@@ -6,20 +6,7 @@ import "zeppelin-solidity/contracts/ownership/Ownable.sol";
 import "./SwytchToken.sol";
 
 
-contract SwytchCrowdsale is Crowdsale, Ownable {
-
-    // =================================================================================================================
-    //                                      Constants
-    // =================================================================================================================
-    // Max amount of known addresses of which will get SET by 'Grant' method.
-    //
-    // grantees addresses will be Swytch wallets addresses.
-    // these wallets will contain SET tokens that will be used for 2 purposes only -
-    // 1. SET tokens against raised fiat money
-    // 2. SET tokens for presale bonus.
-    // we set the value to 10 (and not to 2) because we want to allow some flexibility for cases like fiat money that is raised close to the crowdsale.
-    // we limit the value to 10 (and not larger) to limit the run time of the function that process the grantees array.
-    uint8 public constant MAX_TOKEN_GRANTEES = 10;
+contract SwytchTokenDistribution is Crowdsale, Ownable {
 
     // SET to ETH base rate
     uint256 public constant EXCHANGE_RATE = 1;
@@ -82,7 +69,7 @@ contract SwytchCrowdsale is Crowdsale, Ownable {
     //Grantees - private sale and early investors
     address[] public presaleGranteesMapKeys;
     mapping(address => uint256) public presaleGranteesMap;  //address=>wei token amount
-
+    uint256 private constant decimalFactor = 10 ** uint256(18);
     // =================================================================================================================
     //                                      Events
     // =================================================================================================================
@@ -96,7 +83,7 @@ contract SwytchCrowdsale is Crowdsale, Ownable {
     //                                      Constructors
     // =================================================================================================================
 
-    function SwytchCrowdsale(
+    function SwytchTokenDistribution(
         uint256 _startTime,
         uint256 _endTime,
         address _wallet,
@@ -142,41 +129,38 @@ contract SwytchCrowdsale is Crowdsale, Ownable {
     // =================================================================================================================
 
     // this needs work still
-    function finalization() internal onlyOwner {
-
+    function initialize() internal onlyOwner {
+        token.disableTransfers(false);
         // granting bonuses for the pre crowdsale grantees:
-        for (uint256 i = 0; i < presaleGranteesMapKeys.length; i++) {
-            var _grantee = presaleGranteesMapKeys[i];
-            var _allocation = presaleGranteesMap[presaleGranteesMapKeys[i]];
-            SwytchToken(token).transfer(_grantee, _allocation);
-        }
+//        for (uint256 i = 0; i < presaleGranteesMapKeys.length; i++) {
+//            var _grantee = presaleGranteesMapKeys[i];
+//            var _allocation = presaleGranteesMap[presaleGranteesMapKeys[i]];
+//            SwytchToken(token).transfer(_grantee, _allocation);
+//        }
 
 
         // 15% of the total number of SET tokens will be allocated to the team
-        var _teamAllocation = CORE_TEAM_ALLOCATION;
-        SwytchToken(token).transfer(teamWallet, _teamAllocation);
+        var _teamAllocation = CORE_TEAM_ALLOCATION * decimalFactor;
+        token.transfer(teamWallet, _teamAllocation);
 
         // 14% of the total number of SET tokens will be allocated the TCF foundation,
-        var _tcfAllocation = TOKEN_COMMONS_ALLOCATION;
-        SwytchToken(token).transfer(foundationWallet, _tcfAllocation);
+        var _tcfAllocation = TOKEN_COMMONS_ALLOCATION * decimalFactor;
+        token.transfer(foundationWallet, _tcfAllocation);
 
-        var _bountyAllocation = BOUNTY_ALLOCATION;
+        var _bountyAllocation = BOUNTY_ALLOCATION * decimalFactor;
         // 3% of the total number of SET tokens will be allocated to professional fees and Bounties
-        SwytchToken(token).transfer(bountyWallet, _bountyAllocation);
+        token.transfer(bountyWallet, _bountyAllocation);
 
         // 35% of the total number of SET tokens will be allocated to SWYTCH,
         // and as a reserve for the company to be used for future strategic plans for the created ecosystem
-        var _reserveAllocation = FUTURE_RESERVE_ALLOCATION;
-        SwytchToken(token).transfer(reserveWallet, _reserveAllocation);
-
-        // Re-enable transfers after the token sale.
-        SwytchToken(token).disableTransfers(false);
+        var _reserveAllocation = FUTURE_RESERVE_ALLOCATION * decimalFactor;
+        token.transfer(reserveWallet, _reserveAllocation);
 
         // Keep destroy function disabled after the token sale.
-        SwytchToken(token).setDestroyEnabled(false);
+        token.setDestroyEnabled(false);
 
         // transfer token ownership to crowdsale owner
-        SwytchToken(token).transferOwnership(owner);
+        token.transferOwnership(owner);
     }
 
     // =================================================================================================================
@@ -205,7 +189,7 @@ contract SwytchCrowdsale is Crowdsale, Ownable {
 
         // Adding new key if not present:
         if (presaleGranteesMap[_grantee] == 0) {
-            require(presaleGranteesMapKeys.length < MAX_TOKEN_GRANTEES);
+//            require(presaleGranteesMapKeys.length < MAX_TOKEN_GRANTEES);
             presaleGranteesMapKeys.push(_grantee);
             GrantAdded(_grantee, _value);
         }

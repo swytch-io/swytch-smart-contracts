@@ -3,6 +3,15 @@ var SwytchToken = artifacts.require('./SwytchToken.sol')
 // var SwytchCrowdsale = artifacts.require('./SwytchCrowdsale.sol')
 
 module.exports = (deployer, network, accounts) => {
+  console.log(network)
+  //
+  // if (network === 'ropsten') {
+  //   deployer.deploy(SwytchToken, {from: '0xe3ec0033d4d5359f0ba497b0f4053d3e496b3d07'})
+  // } else if (network === 'live') {
+  //   throw new Error()
+  //   deployer.deploy(SwytchToken, {from: '0xe3ec0033d4d5359f0ba497b0f4053d3e496b3d07'})
+  // } else {
+  // }
   deployer.deploy(SwytchToken)
   // deployer.deploy(SwytchToken).then(() => {
   //   return deployer.deploy(SmartTokenController, SwytchToken.address)
