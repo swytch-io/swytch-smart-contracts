@@ -4,16 +4,16 @@ require('babel-polyfill')
 module.exports = {
   networks: {
     development: {
-      host: '127.0.0.1',
+      host: 'localhost',
       port: 8545,
-      network_id: '10', // Match any network id
+      network_id: '*  ', // Match any network id
     },
-    ropsten: {
-      host: '127.0.0.1',
-      port: 8545,
-      network_id: 3,
-      gas:   2900000
-    },
+    // ropsten: {
+    //   host: '127.0.0.1',
+    //   port: 8545,
+    //   network_id: 3,
+    //   gas:   2900000
+    // },
     coverage: {
       host: '127.0.0.1',
       network_id: '*',
