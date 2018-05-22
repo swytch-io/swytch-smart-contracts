@@ -6,7 +6,7 @@ module.exports = {
     development: {
       host: 'localhost',
       port: 8545,
-      network_id: '*  ', // Match any network id
+      network_id: '*' // Match any network id
     },
     // ropsten: {
     //   host: '127.0.0.1',
@@ -17,7 +17,7 @@ module.exports = {
     coverage: {
       host: '127.0.0.1',
       network_id: '*',
-      port: 8555,
+      port: 8555
     }
   },
   mocha: {

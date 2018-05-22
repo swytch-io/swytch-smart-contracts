@@ -8,12 +8,12 @@ contract SwytchToken is SmartToken {
     /**
     * @dev Contract Name
     */
-    string public name = "Swytch Energy Token - Beta";
+    string public name = "Swytch Energy Token";
 
     /**
     * @dev Contract Symbol
     */
-    string public symbol = "BSET";
+    string public symbol = "SET";
 
     /**
     * @dev Number of decimals

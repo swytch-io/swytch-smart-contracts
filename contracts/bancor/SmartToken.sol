@@ -54,7 +54,7 @@ contract SmartToken is ISmartToken, Utils, Ownable, MintableToken {
     }
 
     //@Override
-    function issue(address _to, uint256 _amount) public transfersAllowed onlyOwner validAddress(_to) notThis(_to) {
+    function issue(address _to, uint256 _amount) public transfersAllowed onlyOwner canMint validAddress(_to) notThis(_to) {
         totalSupply_ = totalSupply_.add(_amount);
         balances[_to] = balances[_to].add(_amount);
 
