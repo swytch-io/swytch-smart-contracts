@@ -1,6 +1,7 @@
 const SwytchToken = artifacts.require('../contracts/SwytchToken.sol')
 const utils = require('./helpers/Utils')
-
+const web3 = require('web3')
+const BigNumber = require('bignumber.js')
 contract('SwytchToken', (accounts) => {
   let token
   let owner = accounts[0]
@@ -74,7 +75,24 @@ contract('SwytchToken', (accounts) => {
       let newSupply = await token.totalSupply()
       assert(newSupply, 3)
     })
-
+    it('should throw when trying to mint after minting MAX reached', async () => {
+      let token = await SwytchToken.new()
+      await token.disableTransfers(false)
+      assert.equal(await token.transfersEnabled(), true)
+      let max = await token.MAXIMUM_SUPPLY() - new BigNumber(web3.utils.toWei('4'))
+      console.log(max)
+      await token.mint(accounts[0], max)
+      console.log(await token.totalSupply().toString())
+      // await token.finishMinting()
+      assert(token.mintingFinished, true)
+      await token.mint(accounts[0], web3.utils.toWei('5'))
+      try {
+      } catch (error) {
+        let e = utils.ensureException(error)
+        console.log(error)
+        return e
+      }
+    })
     it('should throw when trying to mint after minting has stopped', async () => {
       let token = await SwytchToken.new()
       await token.disableTransfers(false)

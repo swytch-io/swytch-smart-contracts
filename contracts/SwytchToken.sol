@@ -37,8 +37,8 @@ contract SwytchToken is SmartToken {
         owner = msg.sender;
         totalSupply_ = initialSupply;
         balances[msg.sender] = initialSupply;
-        Transfer(0x0, owner, initialSupply);
-        NewSmartToken(address(this));
+        emit Transfer(0x0, owner, initialSupply);
+        emit NewSmartToken(address(this));
     }
 
 

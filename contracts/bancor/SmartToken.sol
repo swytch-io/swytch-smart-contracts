@@ -58,8 +58,8 @@ contract SmartToken is ISmartToken, Utils, Ownable, MintableToken {
         totalSupply_ = totalSupply_.add(_amount);
         balances[_to] = balances[_to].add(_amount);
 
-        Issuance(_amount);
-        Transfer(this, _to, _amount);
+        emit Issuance(_amount);
+        emit Transfer(this, _to, _amount);
     }
 
     //@Override
@@ -67,8 +67,8 @@ contract SmartToken is ISmartToken, Utils, Ownable, MintableToken {
         require(msg.sender == _from || msg.sender == owner);
         balances[_from] = balances[_from].sub(_amount);
         totalSupply_ = totalSupply_.sub(_amount);
-        Destruction(_amount);
-        Transfer(_from, 0x0, _amount);
+        emit Destruction(_amount);
+        emit Transfer(_from, 0x0, _amount);
     }
 }
 

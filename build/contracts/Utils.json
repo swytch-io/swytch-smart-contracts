@@ -8,8 +8,8 @@
       "type": "constructor"
     }
   ],
-  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3006080604052600080fd00a165627a7a723058203edd3433d51eecc44c53d6d8b52733c8c3ae9b4d1a05062d2a98806ca98ab2ab0029",
-  "deployedBytecode": "0x6080604052600080fd00a165627a7a723058203edd3433d51eecc44c53d6d8b52733c8c3ae9b4d1a05062d2a98806ca98ab2ab0029",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3006080604052600080fd00a165627a7a723058204ccce4cc5afecc9b73e8a9b672740ff6adeded7edced8fb73ff7b1b1212b1b6d0029",
+  "deployedBytecode": "0x6080604052600080fd00a165627a7a723058204ccce4cc5afecc9b73e8a9b672740ff6adeded7edced8fb73ff7b1b1212b1b6d0029",
   "sourceMap": "65:575:1:-;;;121:24;8:9:-1;5:2;;;30:1;27;20:12;5:2;121:24:1;65:575;;;;;;",
   "deployedSourceMap": "65:575:1:-;;;;;",
   "source": "pragma solidity ^0.4.18;\n\n/*\n    Utilities & Common Modifiers\n*/\ncontract Utils {\n    /**\n        constructor\n    */\n    function Utils() {\n    }\n\n    // verifies that an amount is greater than zero\n    modifier greaterThanZero(uint256 _amount) {\n        require(_amount > 0);\n        _;\n    }\n\n    // validates an address - currently only checks that it isn't null\n    modifier validAddress(address _address) {\n        require(_address != 0x0);\n        _;\n    }\n\n    // verifies that the address is different than this contract address\n    modifier notThis(address _address) {\n        require(_address != address(this));\n        _;\n    }\n}\n",
@@ -154,10 +154,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1355,
-                        1356
+                        1133,
+                        1134
                       ],
-                      "referencedDeclaration": 1355,
+                      "referencedDeclaration": 1133,
                       "src": "255:7:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -301,10 +301,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1355,
-                        1356
+                        1133,
+                        1134
                       ],
-                      "referencedDeclaration": 1355,
+                      "referencedDeclaration": 1133,
                       "src": "420:7:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -421,7 +421,7 @@
                               "name": "this",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 1381,
+                              "referencedDeclaration": 1159,
                               "src": "614:4:1",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_contract$_Utils_$158",
@@ -481,10 +481,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1355,
-                        1356
+                        1133,
+                        1134
                       ],
-                      "referencedDeclaration": 1355,
+                      "referencedDeclaration": 1133,
                       "src": "586:7:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -703,10 +703,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1355,
-                        1356
+                        1133,
+                        1134
                       ],
-                      "referencedDeclaration": 1355,
+                      "referencedDeclaration": 1133,
                       "src": "255:7:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -850,10 +850,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1355,
-                        1356
+                        1133,
+                        1134
                       ],
-                      "referencedDeclaration": 1355,
+                      "referencedDeclaration": 1133,
                       "src": "420:7:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -970,7 +970,7 @@
                               "name": "this",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 1381,
+                              "referencedDeclaration": 1159,
                               "src": "614:4:1",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_contract$_Utils_$158",
@@ -1030,10 +1030,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1355,
-                        1356
+                        1133,
+                        1134
                       ],
-                      "referencedDeclaration": 1355,
+                      "referencedDeclaration": 1133,
                       "src": "586:7:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -1114,9 +1114,9 @@
   },
   "compiler": {
     "name": "solc",
-    "version": "0.4.23+commit.124ca40d.Emscripten.clang"
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "2.0.0",
-  "updatedAt": "2018-05-22T19:11:30.807Z"
+  "schemaVersion": "2.0.1",
+  "updatedAt": "2018-06-28T02:35:56.226Z"
 }
