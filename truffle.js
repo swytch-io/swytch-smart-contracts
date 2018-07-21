@@ -16,14 +16,14 @@ module.exports = {
       gas: 4700000,
       gasPrice: 1000000000
     },
-    // live: {
-    //   from: '0xabc09e2ac2c45387c6fbefb882ce21a6fbeb5667',
-    //   host: '127.0.0.1',
-    //   port: 8545,
-    //   network_id: 1,
-    //   // gas: 5534126,
-    //   // gasPrice: 11000000000
-    // },
+    live: {
+      from: '0x0b8d384010754732d16f45a7a3a427415651f3fc',
+      host: '127.0.0.1',
+      port: 8545,
+      network_id: 1,
+      gas: 4700000,
+      gasPrice: 10000000000
+    },
     coverage: {
       host: '127.0.0.1',
       network_id: '*',
